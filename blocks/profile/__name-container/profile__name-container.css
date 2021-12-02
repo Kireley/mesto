@@ -1,11 +1,11 @@
-.profile__name {
+.profile__name-container {
   display: flex;
   align-items: baseline;
   width: 100%;
 }
 
 @media screen and (max-width: 640px) {
-  .profile__name {
+  .profile__name-container {
     justify-content: center;
   }
 }
