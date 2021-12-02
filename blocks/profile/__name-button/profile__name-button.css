@@ -1,0 +1,27 @@
+.profile__name-button {
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  background-image: url(../../../images/button-edit.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #000000;
+  border: 1px solid #ffffff;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 18px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.profile__name-button:hover {
+  opacity: .5;
+}
+
+@media screen and (max-width: 640px) {
+  .profile__name-button {
+    margin-left: 10px;
+    width: 18px;
+    height: 18px;
+  }
+}
