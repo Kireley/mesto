@@ -27,11 +27,10 @@
 @import url(../blocks/places/places.css);
 /* place */
 @import url(../blocks/place/place.css);
+@import url(../blocks/place/__container/place__container.css);
 @import url(../blocks/place/__title/place__title.css);
 @import url(../blocks/place/__like-button/place__like-button.css);
 @import url(../blocks/place/__image/place__image.css);
-
-@import url(../blocks/place/__container/place__container.css);
 /* footer */ 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
