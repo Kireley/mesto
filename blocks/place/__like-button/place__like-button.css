@@ -8,6 +8,7 @@
   border: 0;
   color: #000;
   cursor: pointer;
+  transition: opacity .15s ease-out;
 }
 
 .place__like-button:focus {

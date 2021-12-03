@@ -5,7 +5,7 @@
   font-size: 14px;
   line-height: 17px;
   color: #000000;
-  min-height: 27px;
+  min-height: 36px;
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   width: 100%;
@@ -15,14 +15,15 @@
 }
 
 .popup__input:first-child {
-  margin: 54px 0 30px;
+  margin: 39px 0 21px;
 }
 
 @media screen and (max-width: 640px) {
   .popup__input {
-    margin: 0 0 75px;
+    margin: 0 0 45px;
+    min-height: 36px;
   }
   .popup__input:first-child {
-    margin: 45px 0 30px;
+    margin: 65px 0 21px;
   }
 }

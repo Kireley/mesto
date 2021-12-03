@@ -3,7 +3,7 @@
   grid-template: 282px 1fr / 1fr;
   overflow: hidden;
   width: 282px;
-  height: 361px;
+  min-height: 361px;
   background-color: #fff;
   object-fit: cover;
   border-radius: 10px;
