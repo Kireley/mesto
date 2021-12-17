@@ -11,9 +11,7 @@
   transition: opacity .15s ease-out;
 }
 
-.place__like-button:focus {
-  background-image: url(../../../images/heart-icon-active.svg);
-}
+
 
 .place__like-button:hover {
   opacity: .5;
