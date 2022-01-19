@@ -9,6 +9,11 @@ const placeInput = popupPlace.querySelector('.popup__input_type_place-name');
 const linkInput = popupPlace.querySelector('.popup__input_type_input-link');
 const placesContainer = document.querySelector('.places');
 
+const placeForm = document.querySelector('.popup__form_type_add-place');
+const profileForm = document.querySelector('.popup__form_type_edit')
+
+const popups = document.querySelectorAll('.popup');
+
 const popupProfile = document.querySelector('.popup_type_profile-edit');
 const profileFormElement = popupProfile.querySelector('.popup__form');
 const nameInput = popupProfile.querySelector('.popup__input_type_name');
@@ -47,17 +52,54 @@ const initialCards = [
   }
 ];
 
+function inputValidity(inputs) {
+  inputs.some(input => {
+    return input.validity.valid
+  })
+}
+
+function resetValidation(popup) {
+  const inputList = Array.from(popup.querySelectorAll(".popup__input"));
+  const button = popup.querySelector(".popup__submit-button");
+  if (!inputValidity(inputList)) {
+    button.classList.add("popup__submit-button_inactive");
+    button.disabled = true;
+  } else {
+    button.classList.remove("popup__submit-button_inactive");
+    button.disabled = false;
+  }
+  inputList.forEach((input) => {
+    const inputErrorSpan = popup.querySelector(`.${input.id}-error`);
+    input.classList.remove("popup__input_type_error");
+    inputErrorSpan.textContent = "";
+  });
+}
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener("keydown", keyHandler);
 }
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener("keydown", keyHandler);
 }
+
+
 closeButtons.forEach((item) => {
   item.addEventListener('click', (evt) => {
     closePopup(evt.target.closest('.popup'));
   });
 });
+popups.forEach((item) => {
+  item.addEventListener('click', (evt) => {
+    closePopup(evt.target);
+  });
+});
+
+function keyHandler(evt) {
+  const popup = document.querySelector(".popup_opened");
+  if (evt.key === "Escape") closePopup(popup);
+}
 
 /* сохранение нового места */
 function saveNewPlace(evt) {
@@ -81,14 +123,16 @@ placeFormElement.addEventListener('submit', saveNewPlace);
 
 editButton.addEventListener('click', () => {
   openPopup(popupProfile);
+
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  resetValidation(popupProfile);
 });
 
 addButton.addEventListener('click', () => {
+  placeForm.reset();
+  resetValidation(popupPlace);
   openPopup(popupPlace);
-  placeInput.value = '';
-  linkInput.value = '';
 });
 /* шаблон карточки */
 function addCards(nameValue, urlValue) {
@@ -114,7 +158,8 @@ function addCards(nameValue, urlValue) {
   });
   return cardElement;
 }
-/* массив карточек */
+
 initialCards.map((card) => {
   placesContainer.append(addCards(card.name, card.link));
 });
+

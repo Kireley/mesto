@@ -1,0 +1,11 @@
+.popup__form-field {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0 0 49px;
+    
+}
+
+.popup__form-field:first-child {
+    margin: 39px 0 21px;
+}

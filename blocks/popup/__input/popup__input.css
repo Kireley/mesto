@@ -11,12 +11,10 @@
   width: 100%;
   box-sizing: border-box;
   outline: 0;
-  margin: 0 0 48px;
+  
 }
 
-.popup__input:first-child {
-  margin: 39px 0 21px;
-}
+
 
 @media screen and (max-width: 640px) {
   .popup__input {
