@@ -52,36 +52,15 @@ const initialCards = [
   }
 ];
 
-function inputValidity(inputs) {
-  inputs.some(input => {
-    return input.validity.valid
-  })
-}
 
-function resetValidation(popup) {
-  const inputList = Array.from(popup.querySelectorAll(".popup__input"));
-  const button = popup.querySelector(".popup__submit-button");
-  if (!inputValidity(inputList)) {
-    button.classList.add("popup__submit-button_inactive");
-    button.disabled = true;
-  } else {
-    button.classList.remove("popup__submit-button_inactive");
-    button.disabled = false;
-  }
-  inputList.forEach((input) => {
-    const inputErrorSpan = popup.querySelector(`.${input.id}-error`);
-    input.classList.remove("popup__input_type_error");
-    inputErrorSpan.textContent = "";
-  });
-}
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener("keydown", keyHandler);
+  document.addEventListener("keydown", handleEscKey);
 }
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener("keydown", keyHandler);
+  document.removeEventListener("keydown", handleEscKey);
 }
 
 
@@ -96,7 +75,7 @@ popups.forEach((item) => {
   });
 });
 
-function keyHandler(evt) {
+function handleEscKey(evt) {
   const popup = document.querySelector(".popup_opened");
   if (evt.key === "Escape") closePopup(popup);
 }
@@ -106,7 +85,7 @@ function saveNewPlace(evt) {
   evt.preventDefault();
   const a = placeInput.value;
   const b = linkInput.value;
-  placesContainer.prepend(addCards(a, b));
+  placesContainer.prepend(addCard(a, b));
   closePopup(popupPlace);
 }
 /* сохранение профиля */
@@ -135,7 +114,14 @@ addButton.addEventListener('click', () => {
   openPopup(popupPlace);
 });
 /* шаблон карточки */
-function addCards(nameValue, urlValue) {
+function displayImagePopup(title, image) {
+  imagePopup.src = image;
+  imagePopup.alt = title;
+  captionPopup.textContent = title;
+  openPopup(popupImage);
+}
+
+function addCard(nameValue, urlValue) {
   const cardElement = cardTemplate.content.querySelector('.place').cloneNode(true);
   const image = cardElement.querySelector('.place__image');
   const remove = cardElement.querySelector('.place__remove');
@@ -144,11 +130,8 @@ function addCards(nameValue, urlValue) {
   title.textContent = nameValue;
   image.src = urlValue;
   image.alt = nameValue;
-  image.addEventListener('click', () => {
-    imagePopup.src = image.src;
-    imagePopup.alt = image.alt;
-    captionPopup.textContent = title.textContent;
-    openPopup(popupImage);
+  image.addEventListener('click', (evt) => {
+    displayImagePopup(title.textContent, image.src)
   });
   like.addEventListener('click', (evt) => {
     evt.target.classList.toggle('place__like-button_active');
@@ -158,8 +141,13 @@ function addCards(nameValue, urlValue) {
   });
   return cardElement;
 }
+function placeCard(name, link) {
+  const card = addCard(name, link);
+  placesContainer.append(card);
+}
 
-initialCards.map((card) => {
-  placesContainer.append(addCards(card.name, card.link));
+initialCards.forEach((card) => {
+  placeCard(card.name, card.link);
 });
+
 
